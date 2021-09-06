@@ -1,69 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head> <!--Start Head-->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Password Generator</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="wrapper">
+  </head><!--End Head-->
+
+  <body> <!--Start Body. Body contains card with pw requirements and pw result-->
+    <div class="wrapper"> <!--card style wrapper-->
       <header>
         <h1>Password Generator</h1>
       </header>
       <div class="card">
-        <div class="card-header">
-          <h2>Generate a Password</h2>
-          <form action="">
+        <form method= "post" action="#">
+          <div class="card-header">
+            <h2>Generate a Password</h2>
             <label for="pw-size"
-              >Please inform the password size (min 8, max 128):</label
-            >
+                >Please inform the password size (min 8, max 128):</label
+              >
             <input
-              type="number"
-              id="pw-size"
-              name="pw-size"
-              min="8"
-              max="128"
-            /><br />
+                type="number"
+                id="pw-size"
+                name="pw-size"
+                min="8"
+                max="128"
+              /><br />
             <label for="pw-requirements"
-              >Please select your password components (at least one):</label
-            ><br />
+                >Please select your password components (at least one):</label
+             ><br />
             <input type="checkbox" id="number" name="number" value="number" />
             <label for="number">Numbers</label>
             <input type="checkbox" id="symbol" name="symbol" value="symbol" />
             <label for="symbol">Special Symbols</label>
             <input
-              type="checkbox"
-              id="upp-case"
-              name="upp-case"
-              value="upp-case"
-            />
+                type="checkbox"
+                id="upp-case"
+                name="upp-case"
+                value="upp-case"
+              />
             <label for="upp-case">Upper Case</label>
             <input
-              type="checkbox"
-              id="low-case"
-              name="low-case"
-              value="low-case"
-            />
+                type="checkbox"
+                id="low-case"
+                name="low-case"
+                value="low-case"
+              />
             <label for="low-case">Lower Case</label></br>
-            <input type="reset" />
-            <input type="submit" id="generate" value="Generate" />
-          </form>
-        </div>
-        <div class="card-body">
-          <textarea
-            readonly
-            id="password"
-            placeholder="Your Secure Password"
-            aria-label="Generated Password"
-          ></textarea>
-        </div>
-        <div class="card-footer">
-          <button id="generate" class="btn">Generate Password</button>
-        </div>
-      </div>
-    </div>
+          </div> <!--End of div card-header-->
+          <div class="card-body">
+            <textarea
+              readonly
+              id="password"
+              placeholder="Your Secure Password"
+              aria-label="Generated Password"
+            ></textarea>
+          </div> <!--End of div card-body-->
+          <div class="card-footer">
+            <input type="reset" class="btn"/>
+            <button id="generate" class="btn">Generate Password</button>
+          </div> <!--End of div car-footer-->
+        </form> <!--End of form-->
+      </div> <!--End of div card-->
+    </div> <!--End of div wrapper-->
     <script src="script.js"></script>
-  </body>
+  </body> <!--End body-->
 </html>
