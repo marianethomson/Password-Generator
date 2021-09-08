@@ -70,49 +70,51 @@ var pwPool = [];
 //creates an empty string to receive pw
 var password = "";
 
-//variable to store checkbox status for number
+//variable to store input checkbox
 var numberCheckbox = document.querySelector("#number").checked;
 
-//variable to store checkbox status for symbol
+//variable to store input checkbox
 var symbolCheckbox = document.querySelector("#symbol").checked;
 
-//variable to store checkbox status for Upper Case
-var upperCheckbox = document.querySelector("#upp-case").checked;
+//variable to store input checkbox
+var uppCaseCheckbox = document.querySelector("#upp-case").checked;
 
-//variable to store checkbox status for lower case
-var lowerCheckbox = document.querySelector("#low-case").checked;
+//variable to store input checkbox
+var lowCaseCheckbox = document.querySelector("#low-case").checked;
+
+//variable to store password size
+var pwSize = document.querySelector("#pw-size").value;
 
 //defines the requested pw size as string and converts back into int. Return pwSize for random
 function getPWSize() {
-  var pwSize = document.querySelector("#pw-size").value;
   pwSize = parseInt(pwSize, 10);
   return pwSize;
 }
 
 //get values from the checkbox number and push array type into the pw pool
 function includeNumber() {
-  if ((document.getElementById("number").checked = true)) {
+  if ((numberCheckbox.checked = true)) {
     pwPool.push(arrNumber);
   }
 }
 
 //get values from the checkbox symbol and push array type into the pw pool
 function includeSymbol() {
-  if ((document.getElementById("symbol").checked = true)) {
+  if ((symbolCheckbox.checked = true)) {
     pwPool.push(arrSymbol);
   }
 }
 
 //get values from the checkbox upp-case and push array type into the pw pool
 function includeUppCase() {
-  if ((document.getElementById("upp-case").checked = true)) {
+  if ((uppCaseCheckbox.checked = true)) {
     pwPool.push(arrUpperChar);
   }
 }
 
 //get values from the checkbox low-case and push array type into the pw pool
 function includeLowCase() {
-  if ((document.getElementById("low-case").checked = true)) {
+  if ((lowCaseCheckbox.checked = true)) {
     pwPool.push(arrLowerChar);
   }
 }
@@ -122,8 +124,8 @@ function checkRequirements() {
   if (
     numberCheckbox === false &&
     symbolCheckbox === false &&
-    upperCheckbox === false &&
-    lowerCheckbox === false
+    uppCaseCheckbox === false &&
+    lowCaseCheckbox === false
   ) {
     alert("You need to select at least one type of password element");
   }
@@ -162,11 +164,36 @@ function writePassword() {
 
 //function to copy pw to clipboard
 function copyToClipboard() {
-  var copyPW = document.getElementById("password");
+  var copyPW = document.querySelector("#password");
   copyPW.select();
   copyPW.setSelectionRange(0, 99999);
   navigator.clipboard.writeText(copyPW.value);
 }
 
+//clear local storage
+function clearForm() {
+  localStorage.removeItem("pw-size");
+  localStorage.removeItem("number");
+  localStorage.removeItem("symbol");
+  localStorage.removeItem("upp-case");
+  localStorage.removeItem("low-case");
+}
+
+//function to store inputs in session storage
+function setStorage() {
+  localStorage.setItem("pw-size", pwSize);
+  localStorage.setItem("number", numberCheckbox);
+  localStorage.setItem("symbol", symbolCheckbox);
+  localStorage.setItem("upp-case", uppCaseCheckbox);
+  localStorage.setItem("low-case", lowCaseCheckbox);
+}
+
 // Add event listener to generate button
-generateBtn.addEventListener("click", checkRequirements, writePassword);
+generateBtn.addEventListener(
+  "click",
+  setStorage,
+  checkRequirements,
+  writePassword
+);
+
+document.body.onload = clearForm;
