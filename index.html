@@ -30,23 +30,23 @@
                 max="128"
               /><br />
             <label for="pw-requirements"
-                >Please select your password components (at least one):</label
+                >Please select your password elements (at least one):</label
              ><br />
-            <input type="checkbox" id="number" name="number" value="number" />
+            <input type="checkbox" id="number" name="requirement" value="number" />
             <label for="number">Numbers</label>
-            <input type="checkbox" id="symbol" name="symbol" value="symbol" />
+            <input type="checkbox" id="symbol" name="requirement" value="symbol" />
             <label for="symbol">Special Symbols</label>
             <input
                 type="checkbox"
                 id="upp-case"
-                name="upp-case"
+                name="requirement"
                 value="upp-case"
               />
             <label for="upp-case">Upper Case</label>
             <input
                 type="checkbox"
                 id="low-case"
-                name="low-case"
+                name="requirement"
                 value="low-case"
               />
             <label for="low-case">Lower Case</label></br>
@@ -57,7 +57,7 @@
               id="password"
               placeholder="Your Secure Password"
               aria-label="Generated Password"
-            ></textarea>
+           onclick=copyToClipboard() ></textarea>
           </div> <!--End of div card-body-->
           <div class="card-footer">
             <input type="reset" class="btn" id="reset"/>

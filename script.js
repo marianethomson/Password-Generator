@@ -1,18 +1,5 @@
-/* pw requirements
-checks at least one array type
-size of pw - 8 to 128 
-
-get element by id from form
-
-array types
-if statement
-create pw array pool
-from pool math.random for each character
-
-display in the page*/
-
-//changing to getElementByID as I just want to return the specific button to generate
-var generateBtn = document.getElementById("generate");
+//button to generate pw
+var generateBtn = document.querySelector("#generate");
 
 //Array of lowercase characters
 var arrLowerChar = [
@@ -77,68 +64,109 @@ var arrSymbol = [
 // Array of numbers
 var arrNumber = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-//check pw size
-/* function checkPwSize() {
-  let requiredSize = document.getElementById("pw-size");
-  if (requiredSize < 5 || requiredSize > 128) {
-    let errorMsg = document.createElement("div");
-    errorMsg.textContent(
-      "The specified size does not meet the password requirements."
-    );
-    errorMsg.appendChild(this);
-    errorMsg.setAttribute("style", "color: red");
-  }
-} */
-
-//error message if pw doesn't meet minimum requirements
-/* function checkRequirements() {
-  let arrayCheckbox = document.querySelectorAll("checkbox");
-  for (i=0, i<arrayCheckbox, i++){
-    (if arrayCheckbox[i]=true){
-      
-    }
-  }
-} */
-
-//defines pw size
-var pwSize = document.getElementById("pw-size");
-
 //initializes array to receive pw requirements type
 var pwPool = [];
 
+//creates an empty string to receive pw
+var password = "";
+
+//variable to store checkbox status for number
+var numberCheckbox = document.querySelector("#number").checked;
+
+//variable to store checkbox status for symbol
+var symbolCheckbox = document.querySelector("#symbol").checked;
+
+//variable to store checkbox status for Upper Case
+var upperCheckbox = document.querySelector("#upp-case").checked;
+
+//variable to store checkbox status for lower case
+var lowerCheckbox = document.querySelector("#low-case").checked;
+
+//defines the requested pw size as string and converts back into int. Return pwSize for random
+function getPWSize() {
+  var pwSize = document.querySelector("#pw-size").value;
+  pwSize = parseInt(pwSize, 10);
+  return pwSize;
+}
+
 //get values from the checkbox number and push array type into the pw pool
-if ((document.getElementById("number").checked = true)) {
-  pwPool.push(arrNumber);
+function includeNumber() {
+  if ((document.getElementById("number").checked = true)) {
+    pwPool.push(arrNumber);
+  }
 }
 
 //get values from the checkbox symbol and push array type into the pw pool
-if ((document.getElementById("symbol").checked = true)) {
-  pwPool.push(arrSymbol);
+function includeSymbol() {
+  if ((document.getElementById("symbol").checked = true)) {
+    pwPool.push(arrSymbol);
+  }
 }
 
 //get values from the checkbox upp-case and push array type into the pw pool
-if ((document.getElementById("upp-case").checked = true)) {
-  pwPool.push(arrUpperChar);
+function includeUppCase() {
+  if ((document.getElementById("upp-case").checked = true)) {
+    pwPool.push(arrUpperChar);
+  }
 }
 
 //get values from the checkbox low-case and push array type into the pw pool
-if ((document.getElementById("low-case").checked = true)) {
-  pwPool.push(arrLowerChar);
+function includeLowCase() {
+  if ((document.getElementById("low-case").checked = true)) {
+    pwPool.push(arrLowerChar);
+  }
 }
 
-//transforms multi-level array into flat array
-pwPool.flat;
+// function to check if at least one type of requirement was selected
+function checkRequirements() {
+  if (
+    numberCheckbox === false &&
+    symbolCheckbox === false &&
+    upperCheckbox === false &&
+    lowerCheckbox === false
+  ) {
+    alert("You need to select at least one type of password element");
+  }
+}
 
-//function to random select elements from the pwPool
-//up to the lenght required
+//function to run requirements and include them into an array. Multi dimensional goes into flat array. Return array to random
+function includePassword() {
+  pwPool = includeNumber();
+  pwPool = includeSymbol();
+  pwPool = includeUppCase();
+  pwPool = includeLowCase();
+  pwPool = pwPool.flat;
+  return pwPool;
+}
+
+//randomizing elements in the pw and returning the randomized array
+function generatePassword() {
+  var pwSize = getPWSize();
+  pwPool = pwPool[Math.floor(Math.random() * pwSize)];
+  return pwPool;
+}
+
+//function to change array back into string and removing commas
+function passToString() {
+  password = generatePassword();
+  password = password.toString.replace(/,/g, "");
+  return password;
+}
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.getElementsByClassName("#password");
+  var passwordText = passToString();
+  passwordText.document.createElement("#password");
+  body.appendChild(textarea);
+}
 
-  passwordText.value = password;
+//function to copy pw to clipboard
+function copyToClipboard() {
+  var copyPW = document.getElementById("password");
+  copyPW.select();
+  copyPW.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(copyPW.value);
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", checkRequirements, writePassword);
