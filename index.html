@@ -14,9 +14,11 @@
         <h1>Password Generator</h1>
       </header>
       <div class="card">
-        <form method= "post" action="#">
+        <form>
           <div class="card-header">
             <h2>Generate a Password</h2>
+          </div><!--End div card-header-->
+          <div class="card-body">
             <label for="pw-size"
                 >Please inform the password size (min 8, max 128):</label
               >
@@ -48,7 +50,7 @@
                 value="low-case"
               />
             <label for="low-case">Lower Case</label></br>
-          </div> <!--End of div card-header-->
+          </div> <!--End of div card-body-->
           <div class="card-body">
             <textarea
               readonly
@@ -58,7 +60,7 @@
             ></textarea>
           </div> <!--End of div card-body-->
           <div class="card-footer">
-            <input type="reset" class="btn"/>
+            <input type="reset" class="btn" id="reset"/>
             <button id="generate" class="btn">Generate Password</button>
           </div> <!--End of div car-footer-->
         </form> <!--End of form-->
