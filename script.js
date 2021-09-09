@@ -140,6 +140,7 @@ generateBtn.addEventListener("click", function (event) {
       var randomElement = tempArray[Math.floor(Math.random() * password.size)];
       pwContent.push(randomElement);
     }
+    pwContent = pwContent.join("");
     var passwordText = document.getElementById("password");
     passwordText.value = pwContent;
   }

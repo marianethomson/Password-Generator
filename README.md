@@ -36,6 +36,10 @@ WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
 ```
 
+## Added Feature
+
+Password copy to Clipboard
+
 ## Mock-Up
 
 The following image shows the web application's appearance and functionality:
