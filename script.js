@@ -1,6 +1,9 @@
 //button to generate pw
 var generateBtn = document.querySelector("#generate");
 
+//button to reset form
+var resetBtn = document.querySelector("#reset");
+
 //Array of lowercase characters
 var arrLowerChar = [
   "a",
@@ -71,19 +74,19 @@ var pwPool = [];
 var password = "";
 
 //variable to store input checkbox
-var numberCheckbox = document.querySelector("#number").checked;
+var numberCheckbox = document.querySelector("#number");
 
 //variable to store input checkbox
-var symbolCheckbox = document.querySelector("#symbol").checked;
+var symbolCheckbox = document.querySelector("#symbol");
 
 //variable to store input checkbox
-var uppCaseCheckbox = document.querySelector("#upp-case").checked;
+var uppCaseCheckbox = document.querySelector("#upp-case");
 
 //variable to store input checkbox
-var lowCaseCheckbox = document.querySelector("#low-case").checked;
+var lowCaseCheckbox = document.querySelector("#low-case");
 
 //variable to store password size
-var pwSize = document.querySelector("#pw-size").value;
+var pwSize = document.querySelector("#pw-size");
 
 //defines the requested pw size as string and converts back into int. Return pwSize for random
 function getPWSize() {
@@ -143,7 +146,8 @@ function includePassword() {
 
 //randomizing elements in the pw and returning the randomized array
 function generatePassword() {
-  var pwSize = getPWSize();
+  pwSize = getPWSize();
+  pwPool = includePassword();
   pwPool = pwPool[Math.floor(Math.random() * pwSize)];
   return pwPool;
 }
@@ -179,21 +183,17 @@ function clearForm() {
   localStorage.removeItem("low-case");
 }
 
-//function to store inputs in session storage
-function setStorage() {
-  localStorage.setItem("pw-size", pwSize);
-  localStorage.setItem("number", numberCheckbox);
-  localStorage.setItem("symbol", symbolCheckbox);
-  localStorage.setItem("upp-case", uppCaseCheckbox);
-  localStorage.setItem("low-case", lowCaseCheckbox);
-}
+// Add event listener to generate button and saves input into localStorage
+generateBtn.addEventListener("click", function () {
+  preventDefault(), localStorage.setItem("pw-size", pwSize.value);
+  localStorage.setItem("number", numberCheckbox.checked);
+  localStorage.setItem("symbol", symbolCheckbox.checked);
+  localStorage.setItem("upp-case", uppCaseCheckbox.checked);
+  localStorage.setItem("low-case", lowCaseCheckbox.checked);
+  checkRequirements(), writePassword();
+});
 
-// Add event listener to generate button
-generateBtn.addEventListener(
-  "click",
-  setStorage,
-  checkRequirements,
-  writePassword
-);
-
-document.body.onload = clearForm;
+//Add event listener to the reset button
+generateBtn.addEventListener("click", function () {
+  document.body.onload = clearForm();
+});
